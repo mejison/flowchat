@@ -13,8 +13,10 @@ export default {
     return {};
   },
 
-  mounted() {
-    this.init();
+  watch: {
+    instance() {
+      this.init();
+    }
   },
 
   methods: {
@@ -53,8 +55,7 @@ export default {
 </script>
 <style lang="scss">
 .components-bar {
-  width: 100px;
-  margin-right: 2px;
-  background-color: #282c34;
+  width: 100%;
+  height: 50%;
 }
 </style>

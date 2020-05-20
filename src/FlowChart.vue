@@ -1,7 +1,10 @@
 <template>
   <div>
     <div class="flow-chart">
-      <components-bar :diagram="diagram" :instance="instance" />
+      <div class="nav-bar">
+        <components-bar :diagram="diagram" :instance="instance" />
+        <parameters-bar :parameters="parameters" @save="onSaveParameters" />
+      </div>
       <diagram-area
         :diagram="diagram"
         :instance="instance"
@@ -16,7 +19,7 @@
 
 <script>
 import imports from "./data.json";
-import { DiagramArea, ComponentsBar } from "@/components";
+import { DiagramArea, ComponentsBar, ParametersBar } from "@/components";
 import go from "gojs";
 
 export default {
@@ -24,14 +27,29 @@ export default {
 
   components: {
     ComponentsBar,
-    DiagramArea
+    DiagramArea,
+    ParametersBar
   },
 
   data() {
     return {
       imports,
       diagram: false,
-      instance: false
+      instance: false,
+      parameters: [
+        {
+          value: "",
+          key: "param_1"
+        },
+        {
+          value: "",
+          key: "param_2"
+        },
+        {
+          value: "",
+          key: "param_3"
+        }
+      ]
     };
   },
 
@@ -52,7 +70,10 @@ export default {
       this.diagram = diagram;
     },
     onHandleLoad() {
-      console.log("export");
+      console.log("load");
+    },
+    onSaveParameters(parameters) {
+      console.log("onSaveParameters", parameters);
     }
   }
 };
@@ -63,5 +84,13 @@ export default {
   width: 100%;
   display: flex;
   justify-content: space-between;
+
+  .nav-bar {
+    width: 200px;
+    margin-right: 2px;
+    background-color: #282c34;
+    display: flex;
+    flex-direction: column;
+  }
 }
 </style>
